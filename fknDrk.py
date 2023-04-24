@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 import os
 import time
 import random
@@ -11,13 +12,14 @@ import requests
 from rich.console import Console
 from rich.progress import Progress
 
-
 # Add a lock for printing in multi-threaded environment
 print_lock = threading.Lock()
 console = Console()
 
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def print_banner():
     clear_screen()
@@ -25,20 +27,31 @@ def print_banner():
         banner = f.read().strip()
         console.print(banner, style="bold red")
 
+
 def get_proxies():
-    proxies = []
-    if not os.path.exists("proxies.txt"):
+    if os.path.exists("proxies.txt"):
+        proxies = read_proxies_file("proxies.txt")
+    else:
         url = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all&limit=5000"
         proxies = requests.get(url).text.split("\n")
-        with open("proxies.txt", "w") as f:
+    return proxies
+
+def read_proxies_file(proxies_file="proxies.txt"):
+    proxies = []
+    if not os.path.exists(proxies_file):
+        url = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all&limit=5000"
+        proxies = requests.get(url).text.split("\n")
+        with open(proxies_file, "w") as f:
             f.write("\n".join(proxies))
     else:
-        with open("proxies.txt", "r") as f:
+        with open(proxies_file, "r") as f:
             proxies = f.read().split("\n")
     return proxies
 
+
 # Use a session to reuse connections
 session = requests.Session()
+
 
 def test_proxy(proxy, user_agent, verbose):
     test_url = "https://bing.com"
@@ -57,10 +70,11 @@ def test_proxy(proxy, user_agent, verbose):
                 console.print(f"Error with proxy {proxy}: {e}", style="bold red")
     return False
 
+
 def filter_working_proxies(proxies, user_agents, verbose):
     working_proxies = []
     user_agent = random.choice(user_agents)
-    
+
     with ThreadPoolExecutor(max_workers=100) as executor:
         futures_to_proxies = {executor.submit(test_proxy, proxy, user_agent, verbose): proxy for proxy in proxies}
 
@@ -71,7 +85,7 @@ def filter_working_proxies(proxies, user_agents, verbose):
                     if verbose:
                         with print_lock:
                             console.print(f"Good proxy found: {futures_to_proxies[future]}", style="green")
-    
+
     return working_proxies
 
 
@@ -115,11 +129,11 @@ def search_dork(dork, proxies, user_agents, verbose, num_results, threads=50, ma
         retries += 1
         time.sleep(backoff_factor * (2 ** (retries - 1)))
 
-
 def get_user_agents():
     with open("useragents.txt", "r") as f:
         return f.read().split("\n")
 
+           
 def main():
     print_banner()
     parser = argparse.ArgumentParser()
@@ -134,7 +148,12 @@ def main():
 
     user_agents = get_user_agents()
 
-    proxies = filter_working_proxies(get_proxies(), user_agents, args.verbose)
+    if not os.path.exists("proxies.txt"):
+        with print_lock:
+            console.print("Proxies file not found. Retrieving proxies from Proxyscrape API...", style="bold yellow")
+        proxies = get_proxies()
+    else:
+        proxies = filter_working_proxies(read_proxies_file(), user_agents, args.verbose)
 
     if not os.path.exists("results"):
         os.makedirs("results")
