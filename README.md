@@ -1,6 +1,6 @@
 # fknDrk
-![alt text](fkndrk.png)
 Automatically google-dork from a large list of dorks and write results to file
+![alt text](fkndrk.png)
 
 ## Install
 ```bash
@@ -14,3 +14,5 @@ chmod +x fknDrk.py
 ```bash
 python3 fknDrk.py
 ```
+
+![alt text](fkndrk.gif)
