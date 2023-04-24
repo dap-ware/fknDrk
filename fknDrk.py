@@ -29,22 +29,14 @@ def print_banner():
 
 
 def get_proxies():
-    if os.path.exists("proxies.txt"):
-        proxies = read_proxies_file("proxies.txt")
-    else:
-        url = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all&limit=5000"
-        proxies = requests.get(url).text.split("\n")
-    return proxies
-
-def read_proxies_file(proxies_file="proxies.txt"):
     proxies = []
-    if not os.path.exists(proxies_file):
+    if not os.path.exists("proxies.txt"):
         url = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all&limit=5000"
         proxies = requests.get(url).text.split("\n")
-        with open(proxies_file, "w") as f:
+        with open("proxies.txt", "w") as f:
             f.write("\n".join(proxies))
     else:
-        with open(proxies_file, "r") as f:
+        with open("proxies.txt", "r") as f:
             proxies = f.read().split("\n")
     return proxies
 
@@ -148,12 +140,8 @@ def main():
 
     user_agents = get_user_agents()
 
-    if not os.path.exists("proxies.txt"):
-        with print_lock:
-            console.print("Proxies file not found. Retrieving proxies from Proxyscrape API...", style="bold yellow")
-        proxies = get_proxies()
-    else:
-        proxies = filter_working_proxies(read_proxies_file(), user_agents, args.verbose)
+    proxies = get_proxies()
+    working_proxies = filter_working_proxies(proxies, user_agents, args.verbose)
 
     if not os.path.exists("results"):
         os.makedirs("results")
@@ -165,7 +153,7 @@ def main():
 
     saved_dorks = set()  # to keep track of dorks that have already saved results
     with ThreadPoolExecutor(max_workers=args.threads) as executor:
-        futures = {executor.submit(search_dork, dork, proxies, user_agents, args.verbose, args.numResults): dork for dork in dorks}
+        futures = {executor.submit(search_dork, dork, working_proxies, user_agents, args.verbose, args.numResults): dork for dork in dorks}
         with Progress() as progress:
             task_id = progress.add_task("[cyan] Searching dorks...", total=len(dorks))
             for future in as_completed(futures):
@@ -178,6 +166,7 @@ def main():
                     continue
                 else:
                     progress.advance(task_id)
+
 
 if __name__ == '__main__':
     main()
