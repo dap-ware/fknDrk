@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 import os
 import time
 import random
@@ -30,14 +29,14 @@ def print_banner():
 
 def get_proxies():
     proxies = []
-    if not os.path.exists("proxies.txt"):
+    if os.path.exists("proxies.txt"):
+        with open("proxies.txt", "r") as f:
+            proxies = f.read().split("\n")
+    else:
         url = "https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=all&limit=5000"
         proxies = requests.get(url).text.split("\n")
         with open("proxies.txt", "w") as f:
             f.write("\n".join(proxies))
-    else:
-        with open("proxies.txt", "r") as f:
-            proxies = f.read().split("\n")
     return proxies
 
 
@@ -90,6 +89,7 @@ def google_search(query, user_agent, proxy):
     return [result["href"] for result in soup.select(".yuRUbf a")]
 
 def try_search_dork(dork, proxy, user_agent, num_results):
+    results = None
     try:
         results = google_search(dork, user_agent, proxy)
         if results:
@@ -104,7 +104,7 @@ def try_search_dork(dork, proxy, user_agent, num_results):
         with print_lock:
             if verbose:
                 console.print(f"Error with proxy: {proxy}", style="bold yellow")
-        return None
+        return results
 
 
 def search_dork(dork, proxies, user_agents, verbose, num_results, threads=50, max_retries=3, backoff_factor=1.0):
@@ -125,7 +125,7 @@ def get_user_agents():
     with open("useragents.txt", "r") as f:
         return f.read().split("\n")
 
-           
+
 def main():
     print_banner()
     parser = argparse.ArgumentParser()
@@ -140,8 +140,10 @@ def main():
 
     user_agents = get_user_agents()
 
-    proxies = get_proxies()
-    working_proxies = filter_working_proxies(proxies, user_agents, args.verbose)
+    proxies = []
+    if os.path.exists("proxies.txt"):
+        proxies = get_proxies()
+        working_proxies = filter_working_proxies(proxies, user_agents, args.verbose)
 
     if not os.path.exists("results"):
         os.makedirs("results")
@@ -166,7 +168,6 @@ def main():
                     continue
                 else:
                     progress.advance(task_id)
-
 
 if __name__ == '__main__':
     main()
