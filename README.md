@@ -25,7 +25,7 @@ The script will begin running and automatically search for dorks, test proxies, 
 python3 fknDrk.py -t 30 -n 100
 ```
 
-### Command-Line Arguments
+## Command-Line Arguments
 
 - `-t`, `--threads`: Number of threads to use for searching (default: 20)
 - `-n`, `--numResults`: Number of results to save per dork (default: 50)
