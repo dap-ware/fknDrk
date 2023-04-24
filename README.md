@@ -17,6 +17,9 @@ Run the script with the following command:
 ```bash
 ./fknDrk.py
 ```
+
+![fknDrk Gif](fkndrk.gif)
+
 The script will begin running and automatically search for dorks, test proxies, and write results to file. You can configure the number of threads used for searching and the number of results saved per dork with command-line arguments:
 ```bash
 python3 fknDrk.py -t 30 -n 100
