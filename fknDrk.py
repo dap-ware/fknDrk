@@ -435,7 +435,7 @@ def search_dorks(
 
 def get_user_agents():
     # Open the config/dorks.txt file and read its content
-    with open("config/dorks.txt", "r") as f:
+    with open("config/useragents.txt", "r") as f:
         # Split the content by newline character and return the list of user agents
         return f.read().split("\n")
 
