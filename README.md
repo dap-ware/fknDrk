@@ -9,6 +9,7 @@
 ---
 
 **FKNDRK** is a Python script for automating the Google Dorking process. It streamlines the process of Google Dorking by utilizing public proxies and the ScraperAPI (scraperapi.com) free API key. It searches for specific information on websites indexed by Google, based on a list of dorks provided in a file. 
+
 FKNDRK is designed to run concurrently using multiple threads, allowing for efficient and faster searches. Results are saved in a dedicated folder as JSON files, making it easy to analyze and process the data.
 
 <div align="center">
