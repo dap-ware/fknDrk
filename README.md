@@ -12,6 +12,7 @@ FKNDRK is designed to run concurrently using multiple threads, allowing for effi
 - Utilizes public proxies and ScraperAPI
 - Saves search results in JSON format
 - Customizable list of dorks and user agents
+- Random user agent per request
 
 ## Installation
 
