@@ -456,7 +456,9 @@ def load_or_download_proxies(user_agents, session, debug=False):
     except FileNotFoundError:
         # If the config/proxies.txt file is not found, download new proxies
         with print_lock:
-            console.print("[bold red]No proxy file found, downloading proxies...[/bold red]")
+            console.print(
+                "[bold red]No proxy file found, downloading proxies...[/bold red]"
+            )
         resp = session.get(
             "https://api.proxyscrape.com/?request=getproxies&proxytype=http&timeout=10000&country=all"
         )
