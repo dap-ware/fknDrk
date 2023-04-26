@@ -2,7 +2,7 @@
 
 Automatically google-dork from a large list of dorks and write results to file. Scrapes public proxies, tests each scraped proxy, and rotates through the working proxies.
 
-![fknDrk Screenshot](fkndrk.png)
+![fknDrk Screenshot](resources/fkndrk.png)
 
 ## Installation
 
@@ -18,7 +18,7 @@ Run the script with the following command:
 ./fknDrk.py
 ```
 
-![fknDrk Gif](fkndrk.gif)
+![fknDrk Gif](resources/fkndrk.gif)
 
 The script will begin running and automatically search for dorks, test proxies, and write results to file. You can configure the number of threads used for searching and the number of results saved per dork with command-line arguments:
 ```bash
