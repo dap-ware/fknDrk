@@ -65,7 +65,9 @@ python3 fknDrk.py
 -d, --debug Enable debug mode.
 ```
 <div align="center">
+
 ![FKNDRK](resources/fkndrk2.gif)
+
 </div>
 
 ## 🤝 Contributing
