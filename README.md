@@ -4,6 +4,8 @@ FKNDRK is a Python script for automating the Google Dorking process. It streamli
 
 FKNDRK is designed to run concurrently using multiple threads, allowing for efficient and faster searches. Results are saved in a dedicated folder as JSON files, making it easy to analyze and process the data.
 
+![FKNDRK](resources/fkndrk3.gif)
+
 ## Features
 
 - Concurrent searching using multiple threads
@@ -51,6 +53,8 @@ python3 fknDrk.py
 -maxp, --max-paid Maximum number of times to use the paid proxy (default: 0).
 -d, --debug Enable debug mode.
 ```
+
+![FKNDRK](resources/fkndrk2.gif)
 
 ## Contributing
 
