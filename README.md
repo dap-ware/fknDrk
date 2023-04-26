@@ -30,7 +30,7 @@ FKNDRK is designed to run concurrently using multiple threads, allowing for effi
 
 ## 🛠️ Installation
 
-1. Clone the repository:
+Clone the repository:
 
 ```bash
 pip install -r requirements.txt
@@ -40,11 +40,11 @@ pip install -r requirements.txt
 
 ## 📖 Usage
 
-1. Provide a list of dorks in the config/dorks.txt file (or use the one provided)
+Provide a list of dorks in the config/dorks.txt file (or use the one provided)
 
-2. Set up user agents in the config/user_agents.txt file (or use the one provided)
+Set up user agents in the config/user_agents.txt file (or use the one provided)
 
-3. Run the script:
+Run the script:
 
 ```bash
 python3 fknDrk.py
@@ -55,7 +55,7 @@ python3 fknDrk.py
 </div>
 
 
-1. Use the following command-line options to customize the script's behavior:
+Use the following command-line options to customize the script's behavior:
 
 ```bash
 -v, --verbose Display errors with proxies.
