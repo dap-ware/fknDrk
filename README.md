@@ -40,11 +40,11 @@ pip install -r requirements.txt
 
 ## 📖 Usage
 
-    Provide a list of dorks in the config/dorks.txt file.
+1. Provide a list of dorks in the config/dorks.txt file.
 
-    Set up user agents in the config/user_agents.txt file.
+2. Set up user agents in the config/user_agents.txt file.
 
-    Run the script:
+3. Run the script:
 
 ```bash
 python3 fknDrk.py
