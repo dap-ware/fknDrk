@@ -40,6 +40,7 @@ pip install -r requirements.txt
 python3 fknDrk.py
 ```
 
+![FKNDRK](resources/fkndrk1.gif)
 
 4. Use the following command-line options to customize the script's behavior:
 
