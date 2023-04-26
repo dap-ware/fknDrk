@@ -455,7 +455,8 @@ def load_or_download_proxies(user_agents, session, debug=False):
             proxies = f.read().splitlines()
     except FileNotFoundError:
         # If the config/proxies.txt file is not found, download new proxies
-        print("[red]No proxy file found, downloading proxies...[/red]")
+        with print_lock:
+            console.print("[bold red]No proxy file found, downloading proxies...[/bold red]")
         resp = session.get(
             "https://api.proxyscrape.com/?request=getproxies&proxytype=http&timeout=10000&country=all"
         )
@@ -466,9 +467,10 @@ def load_or_download_proxies(user_agents, session, debug=False):
                 f.write("\n".join(proxies))
         else:
             # If the request fails, print an error message
-            print(
-                "[bold red]Failed to download proxies, using default proxies.[/bold red]"
-            )
+            with print_lock:
+                console.print(
+                    "[bold red]Failed to download proxies, using default proxies.[/bold red]"
+                )
 
     # Filter the working proxies and return the list
     working_proxies = filter_working_proxies(proxies, user_agents, session, debug=debug)
