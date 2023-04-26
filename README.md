@@ -40,9 +40,9 @@ pip install -r requirements.txt
 
 ## 📖 Usage
 
-1. Provide a list of dorks in the config/dorks.txt file.
+1. Provide a list of dorks in the config/dorks.txt file (or use the one provided)
 
-2. Set up user agents in the config/user_agents.txt file.
+2. Set up user agents in the config/user_agents.txt file (or use the one provided)
 
 3. Run the script:
 
