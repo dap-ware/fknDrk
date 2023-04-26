@@ -39,13 +39,13 @@ pip install -r requirements.txt
 3. (Optional) Obtain a ScraperAPI key for better results and add it to the `.env` file. You can sign up for a free account on the [ScraperAPI website](https://www.scraperapi.com/).
 
 ## 📖 Usage
-Custom dorks/useragents files?
+### Custom dorks/useragents files?
 
 - Provide a list of dorks in the config/dorks.txt file (or use the one provided)
 
 - Set up user agents in the config/user_agents.txt file (or use the one provided)
 
-Run the script:
+### Run the script:
 
 ```bash
 python3 fknDrk.py
