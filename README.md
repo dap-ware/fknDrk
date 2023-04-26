@@ -12,6 +12,8 @@
 
 FKNDRK is designed to run concurrently using multiple threads, allowing for efficient and faster searches. Results are saved in a dedicated folder as JSON files, making it easy to analyze and process the data.
 
+---
+
 <div align="center">
 
 ![FKNDRK](resources/fkndrk3.gif)
